@@ -144,7 +144,9 @@ public class TaskManager {
     public ArrayList<Subtask> getSubtasksByIdEpic(int idEpic) {
         Epic epic = epics.get(idEpic);
         ArrayList<Subtask> subtasksList = new ArrayList<>();
-        for (Integer num : epic.getSubtasks()) subtasksList.add(subtasks.get(num));
+        for (Integer num : epic.getSubtasks()) {
+            subtasksList.add(subtasks.get(num));
+        }
         return subtasksList;
     }
 
