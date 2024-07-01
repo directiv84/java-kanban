@@ -1,4 +1,7 @@
-import TaskTracker.*;
+package ru.yandex.javacource.fetisov.schedule;
+
+import ru.yandex.javacource.fetisov.schedule.manager.TaskManager;
+import ru.yandex.javacource.fetisov.schedule.task.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,15 +28,17 @@ public class Main {
         Subtask subtask = manager.getSubtask(sbt1);
         subtask.setDescription("New description fot subtask id = " + sbt1);
         subtask.setStatus(Status.DONE);
-        manager.updSubtask(subtask);
+        manager.updateSubtask(subtask);
         //Проверяем, что данные изменились и в подзадаче, и в эпике (статус)
         System.out.println("Эпик с id = " + ep1 + ":\n" + manager.getEpic(ep1));
         System.out.println("Подзадача с id = " + sbt1 + ":\n" + manager.getSubtask(sbt1));
         //Удаляем подзадачу и снова проверяем измнения в в подзадачах и в эпиках
         System.out.println("-".repeat(cnt) + "\n" + "Удалили подзадачу с id = " + sbt3 + " \n" + "-".repeat(cnt));
-        manager.delSubtask(sbt3);
+        manager.removeSubtask(sbt3);
         System.out.println("Эпик с id = " + ep2 + ":\n" + manager.getEpic(ep2));
         System.out.println("Подзадача с id = " + sbt3 + ":\n" + manager.getSubtask(sbt3));
+        System.out.println("-".repeat(cnt) + "\n" + "Подзадачи эпика с id = " + ep1 + "\n" + "-".repeat(cnt));
+        System.out.println(manager.getSubtasksByIdEpic(ep1));
         System.out.println("-".repeat(cnt));
     }
 }

@@ -1,4 +1,4 @@
-package TaskTracker;
+package ru.yandex.javacource.fetisov.schedule.task;
 
 import java.util.Objects;
 
@@ -26,23 +26,23 @@ public class Task {
         this.status = status;
     }
 
-    protected void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    protected int getId() {
+    public int getId() {
         return id;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    protected Status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -59,11 +59,6 @@ public class Task {
     }
 
     @Override
-    public int hashCode() {
-        return getId();
-    }
-
-    @Override
     public String toString() {
         return "{" +
                 "id=" + id +
@@ -71,5 +66,14 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 "}\n";
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 7 * result + Objects.hashCode(getName());
+        result = 17 * result + Objects.hashCode(getDescription());
+        result = 31 * result + Objects.hashCode(getStatus());
+        return result;
     }
 }

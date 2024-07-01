@@ -1,4 +1,4 @@
-package TaskTracker;
+package ru.yandex.javacource.fetisov.schedule.task;
 
 public class Subtask extends Task{
     private int epicId;
@@ -8,8 +8,12 @@ public class Subtask extends Task{
         this.epicId = epicId;
     }
 
-    protected int getEpicId() {
+    public int getEpicId() {
         return epicId;
+    }
+
+    public void setEpicId(int epicId) {
+        this.epicId = epicId;
     }
 
     @Override
