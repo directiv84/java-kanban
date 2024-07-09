@@ -1,13 +1,15 @@
 package ru.yandex.javacource.fetisov.schedule;
 
-import ru.yandex.javacource.fetisov.schedule.manager.TaskManager;
+import ru.yandex.javacource.fetisov.schedule.manager.*;
 import ru.yandex.javacource.fetisov.schedule.task.*;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         //внутреннее тестирование
         int cnt = 55;
-        TaskManager manager = new TaskManager();
+        TaskManager manager = Managers.getDefault();
 
         System.out.println("-".repeat(cnt));
         //Добавляем исходные данные
@@ -20,25 +22,45 @@ public class Main {
         int sbt2 = manager.addNewSubtask(new Subtask("Подзадача 2", "Описание подзадачи 2", Status.DONE, ep1));
         int sbt3 = manager.addNewSubtask(new Subtask("Подзадача 3", "Описание подзадачи 3", Status.IN_PROGRESS, ep2));
         //Печатаем все списки
-        System.out.println("Список задач:\n" + manager.getAllTasks());
-        System.out.println("Список эпиков:\n" + manager.getAllEpics());
-        System.out.println("Список подзадач:\n" + manager.getAllSubtasks());
+        printAllTasks(manager);
         //Получаем, изменяем и обновляем подзадачу
         System.out.println("-".repeat(cnt) + "\n" + "В подзадаче с id = " + sbt1 + " изменили статус на DONE \n" + "-".repeat(cnt));
         Subtask subtask = manager.getSubtask(sbt1);
         subtask.setDescription("New description fot subtask id = " + sbt1);
         subtask.setStatus(Status.DONE);
         manager.updateSubtask(subtask);
-        //Проверяем, что данные изменились и в подзадаче, и в эпике (статус)
-        System.out.println("Эпик с id = " + ep1 + ":\n" + manager.getEpic(ep1));
-        System.out.println("Подзадача с id = " + sbt1 + ":\n" + manager.getSubtask(sbt1));
-        //Удаляем подзадачу и снова проверяем измнения в в подзадачах и в эпиках
+        //Получаем данные по измененным эпику и подзадаче для истории
+        Epic epic1 =  manager.getEpic(ep1);
+        Subtask subtask1 = manager.getSubtask(sbt1);
+        //Удаляем подзадачу и снова получаем данные по измененным эпику и подзадаче
         System.out.println("-".repeat(cnt) + "\n" + "Удалили подзадачу с id = " + sbt3 + " \n" + "-".repeat(cnt));
         manager.removeSubtask(sbt3);
-        System.out.println("Эпик с id = " + ep2 + ":\n" + manager.getEpic(ep2));
-        System.out.println("Подзадача с id = " + sbt3 + ":\n" + manager.getSubtask(sbt3));
-        System.out.println("-".repeat(cnt) + "\n" + "Подзадачи эпика с id = " + ep1 + "\n" + "-".repeat(cnt));
-        System.out.println(manager.getSubtasksByIdEpic(ep1));
+        Epic epic2 =  manager.getEpic(ep2);
+        Subtask subtask2 = manager.getSubtask(sbt3);
+        //Получаем задачи для проверки истории
+        Task hTask1 = manager.getTask(t1);
+        Task hTask2 = manager.getTask(t2);
+        printAllTasks(manager);
         System.out.println("-".repeat(cnt));
+    }
+
+    private static void printAllTasks(TaskManager manager) {
+        System.out.println("Задачи:");
+        for (Task task : manager.getAllTasks()) {
+            System.out.println(task);
+        }
+        System.out.println("Эпики:");
+        for (Task epic : manager.getAllEpics()) {
+            System.out.println(epic);
+        }
+        System.out.println("Подзадачи:");
+        for (Task subtask : manager.getAllSubtasks()) {
+            System.out.println(subtask);
+        }
+
+        System.out.println("История:");
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
+        }
     }
 }

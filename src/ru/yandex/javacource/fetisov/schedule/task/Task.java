@@ -59,6 +59,15 @@ public class Task {
     }
 
     @Override
+    public int hashCode() {
+        int result = getId();
+        result = 7 * result + Objects.hashCode(getName());
+        result = 17 * result + Objects.hashCode(getDescription());
+        result = 31 * result + Objects.hashCode(getStatus());
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "{" +
                 "id=" + id +
@@ -66,14 +75,5 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 "}\n";
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 7 * result + Objects.hashCode(getName());
-        result = 17 * result + Objects.hashCode(getDescription());
-        result = 31 * result + Objects.hashCode(getStatus());
-        return result;
     }
 }
