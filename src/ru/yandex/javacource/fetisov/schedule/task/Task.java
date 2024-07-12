@@ -14,6 +14,13 @@ public class Task {
         this.status = status;
     }
 
+    private Task(Integer id, String name, String description, Status status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -75,5 +82,10 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 "}\n";
+    }
+
+    //Для реализации клонирования объекта при записи в историю
+    public Task newInstance(Task task) {
+        return new Task(task.getId(), task.getName(), task.getDescription(), task.getStatus());
     }
 }

@@ -34,12 +34,17 @@ public class Main {
         Subtask subtask1 = manager.getSubtask(sbt1);
         //Удаляем подзадачу и снова получаем данные по измененным эпику и подзадаче
         System.out.println("-".repeat(cnt) + "\n" + "Удалили подзадачу с id = " + sbt3 + " \n" + "-".repeat(cnt));
+        Epic epic02 =  manager.getEpic(ep2);
+        Subtask subtask02 = manager.getSubtask(sbt3);
         manager.removeSubtask(sbt3);
         Epic epic2 =  manager.getEpic(ep2);
         Subtask subtask2 = manager.getSubtask(sbt3);
         //Получаем задачи для проверки истории
         Task hTask1 = manager.getTask(t1);
         Task hTask2 = manager.getTask(t2);
+        Task hTask3 = manager.getTask(t2);
+        Task hTask4 = manager.getTask(t2);
+        Task hTask5 = manager.getTask(t2);
         printAllTasks(manager);
         System.out.println("-".repeat(cnt));
     }

@@ -1,24 +1,22 @@
 package ru.yandex.javacource.fetisov.schedule.manager;
 
 import ru.yandex.javacource.fetisov.schedule.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     private final int historyCapacity = 10;
     private final List<Task> viewsHistory = new ArrayList<>(historyCapacity);
 
-    /**
-    * В ТЗ явно не указаны действия с историей при удалении задач,
-    * поэтому реализовал с отображенеим null при запросе истории.
-    */
     @Override
     public void add(Task task) {
-        if (viewsHistory.size() == historyCapacity) {
-            viewsHistory.removeFirst();
+        if (task != null) {
+            if (viewsHistory.size() == historyCapacity) {
+                viewsHistory.removeFirst();
+            }
+            Task taskHistory = task.newInstance(task);
+            viewsHistory.add(taskHistory);
         }
-        viewsHistory.add(task);
     }
 
     @Override
