@@ -2,7 +2,10 @@ package ru.yandex.javacource.fetisov.schedule.manager;
 
 import ru.yandex.javacource.fetisov.schedule.task.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
     private int idNewTask = 0;

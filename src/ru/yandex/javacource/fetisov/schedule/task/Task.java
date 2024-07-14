@@ -21,6 +21,11 @@ public class Task {
         this.status = status;
     }
 
+    //Для реализации клонирования объекта при записи в историю
+    public Task newInstance(Task task) {
+        return new Task(task.getId(), task.getName(), task.getDescription(), task.getStatus());
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -84,8 +89,4 @@ public class Task {
                 "}\n";
     }
 
-    //Для реализации клонирования объекта при записи в историю
-    public Task newInstance(Task task) {
-        return new Task(task.getId(), task.getName(), task.getDescription(), task.getStatus());
-    }
 }

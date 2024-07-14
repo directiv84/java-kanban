@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final int historyCapacity = 10;
-    private final List<Task> viewsHistory = new ArrayList<>(historyCapacity);
+    private final List<Task> viewsHistory = new ArrayList<>();
 
     @Override
     public void add(Task task) {
         if (task != null) {
+            int historyCapacity = 10;
             if (viewsHistory.size() == historyCapacity) {
                 viewsHistory.removeFirst();
             }

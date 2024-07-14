@@ -23,13 +23,15 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldReturn0IfHistoryEmpty() {
+    void shouldBeEmptyHistoryBeforeAddTasks() {
         assertEquals(0, historyManager.getHistory().size());
     }
 
     @Test
-    void shouldReturn1AfterAddOneTask() {
+    void shouldIncreaseHistoryAfterAddTask() {
+        int sizeBeforeAdd = historyManager.getHistory().size();
         historyManager.add(task1);
-        assertEquals(1, historyManager.getHistory().size());
+        int sizeAfterAdd = historyManager.getHistory().size();
+        assertEquals(++sizeBeforeAdd, sizeAfterAdd);
     }
 }

@@ -19,17 +19,19 @@ public class EpicTest {
     }
 
     @Test
-    void shouldReturn1AfterAddOneSubtaskId() {
+    void shouldIncreaseNumberOfEpicSubtasksAfterAddSubtask() {
+        int sizeBeforeAdd = epic.getSubtasks().size();
         epic.addSubtaskId(3);
-        assertEquals(1, epic.getSubtasks().size());
+        int sizeAfterAdd = epic.getSubtasks().size();
+        assertEquals(++sizeBeforeAdd, sizeAfterAdd, "Array of epic's subtasks didn't increase after add new subtask");
     }
 
     @Test
-    void removeSubtaskId() {
+    void shouldDecreaseNumberOfEpicSubtasksAfterRemoveSubtask() {
         epic.addSubtaskId(3);
-        int cntBeforeRemove = epic.getSubtasks().size();
+        int sizeBeforeRemove = epic.getSubtasks().size();
         epic.removeSubtaskId(3);
-        int cntAfterRemove = epic.getSubtasks().size();
-        assertEquals(cntBeforeRemove-1, cntAfterRemove);
+        int sizeAfterRemove = epic.getSubtasks().size();
+        assertEquals(--sizeBeforeRemove, sizeAfterRemove, "Array of epic's subtasks didn't decrease after add new subtask");
     }
 }
