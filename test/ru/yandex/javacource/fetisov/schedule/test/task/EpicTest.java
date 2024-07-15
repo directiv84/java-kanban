@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.fetisov.schedule.task.Epic;
 import ru.yandex.javacource.fetisov.schedule.task.Status;
 
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EpicTest {
@@ -20,18 +18,18 @@ public class EpicTest {
 
     @Test
     void shouldIncreaseNumberOfEpicSubtasksAfterAddSubtask() {
-        int sizeBeforeAdd = epic.getSubtasks().size();
+        int sizeBeforeAdd = epic.getSubtasksIds().size();
         epic.addSubtaskId(3);
-        int sizeAfterAdd = epic.getSubtasks().size();
+        int sizeAfterAdd = epic.getSubtasksIds().size();
         assertEquals(++sizeBeforeAdd, sizeAfterAdd, "Array of epic's subtasks didn't increase after add new subtask");
     }
 
     @Test
     void shouldDecreaseNumberOfEpicSubtasksAfterRemoveSubtask() {
         epic.addSubtaskId(3);
-        int sizeBeforeRemove = epic.getSubtasks().size();
+        int sizeBeforeRemove = epic.getSubtasksIds().size();
         epic.removeSubtaskId(3);
-        int sizeAfterRemove = epic.getSubtasks().size();
+        int sizeAfterRemove = epic.getSubtasksIds().size();
         assertEquals(--sizeBeforeRemove, sizeAfterRemove, "Array of epic's subtasks didn't decrease after add new subtask");
     }
 }

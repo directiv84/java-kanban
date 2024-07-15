@@ -5,22 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final List<Task> viewsHistory = new ArrayList<>();
+    private final List<Task> history = new ArrayList<>();
+    public static final int MAX_SIZE = 10;
 
     @Override
     public void add(Task task) {
         if (task != null) {
-            int historyCapacity = 10;
-            if (viewsHistory.size() == historyCapacity) {
-                viewsHistory.removeFirst();
+            if (history.size() == MAX_SIZE) {
+                history.removeFirst();
             }
-            Task taskHistory = task.newInstance(task);
-            viewsHistory.add(taskHistory);
+            history.add(task);
         }
     }
 
     @Override
     public List<Task> getHistory() {
-        return viewsHistory;
+        return history;
     }
 }

@@ -4,7 +4,6 @@ import ru.yandex.javacource.fetisov.schedule.task.Epic;
 import ru.yandex.javacource.fetisov.schedule.task.Subtask;
 import ru.yandex.javacource.fetisov.schedule.task.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
@@ -32,11 +31,11 @@ public interface TaskManager {
 
     void removeEpic(int idTask);
 
-    ArrayList<Task> getAllTasks();
+    List<Task> getAllTasks();
 
-    ArrayList<Subtask> getAllSubtasks();
+    List<Subtask> getAllSubtasks();
 
-    ArrayList<Epic> getAllEpics();
+    List<Epic> getAllEpics();
 
     Task getTask(int id);
 
@@ -44,7 +43,7 @@ public interface TaskManager {
 
     Epic getEpic(int id);
 
-    ArrayList<Subtask> getSubtasksByIdEpic(int idEpic);
+    List<Subtask> getSubtasksByIdEpic(int idEpic);
 
     int getNewId();
 

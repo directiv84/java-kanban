@@ -14,7 +14,10 @@ public class Main {
         System.out.println("-".repeat(cnt));
         //Добавляем исходные данные
         int t1 = manager.addNewTask(new Task("Задача 1", "Описание задачи 1", Status.NEW));
-        //assert t1 ==1 : "Вернулся некоректный id: ожидался 1, вернулся - " + t1;
+        Task tp = manager.getTask(t1);
+        tp.setName("Задача 1 нью");
+        manager.updateTask(tp);
+        manager.getTask(t1);
         int t2 = manager.addNewTask(new Task("Задача 2", "Описание задачи 2", Status.NEW));
         int ep1 = manager.addNewEpic(new Epic("Эпик 1", "Описание эпика 1", Status.NEW));
         int ep2 = manager.addNewEpic(new Epic("Эпик 2", "Описание эпика 2", Status.NEW));
@@ -29,22 +32,18 @@ public class Main {
         subtask.setDescription("New description fot subtask id = " + sbt1);
         subtask.setStatus(Status.DONE);
         manager.updateSubtask(subtask);
+        manager.getSubtask(sbt1);
         //Получаем данные по измененным эпику и подзадаче для истории
         Epic epic1 =  manager.getEpic(ep1);
         Subtask subtask1 = manager.getSubtask(sbt1);
         //Удаляем подзадачу и снова получаем данные по измененным эпику и подзадаче
         System.out.println("-".repeat(cnt) + "\n" + "Удалили подзадачу с id = " + sbt3 + " \n" + "-".repeat(cnt));
         Epic epic02 =  manager.getEpic(ep2);
+        epic02.setName("New name epic 2");
+        manager.updateEpic(epic02);
         Subtask subtask02 = manager.getSubtask(sbt3);
         manager.removeSubtask(sbt3);
         Epic epic2 =  manager.getEpic(ep2);
-        Subtask subtask2 = manager.getSubtask(sbt3);
-        //Получаем задачи для проверки истории
-        Task hTask1 = manager.getTask(t1);
-        Task hTask2 = manager.getTask(t2);
-        Task hTask3 = manager.getTask(t2);
-        Task hTask4 = manager.getTask(t2);
-        Task hTask5 = manager.getTask(t2);
         printAllTasks(manager);
         System.out.println("-".repeat(cnt));
     }
