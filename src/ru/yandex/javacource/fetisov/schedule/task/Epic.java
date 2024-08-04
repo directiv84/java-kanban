@@ -2,7 +2,7 @@ package ru.yandex.javacource.fetisov.schedule.task;
 
 import java.util.ArrayList;
 
-public class Epic extends Task{
+public class Epic extends Task {
     private ArrayList<Integer> subtasksIds;
 
     public Epic(String name, String description, Status status) {
