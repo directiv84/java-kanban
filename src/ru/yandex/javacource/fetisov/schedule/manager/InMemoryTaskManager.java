@@ -80,18 +80,32 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
+        for (Integer id : tasks.keySet()) {
+            historyManager.remove(id);
+        }
         tasks.clear();
     }
 
     @Override
     public void removeAllEpics() {
+        for (Integer id : subtasks.keySet()) {
+            historyManager.remove(id);
+        }
         subtasks.clear();
+
+        for (Integer id : epics.keySet()) {
+            historyManager.remove(id);
+        }
         epics.clear();
     }
 
     @Override
     public void removeAllSubtasks() {
+        for (Integer id : subtasks.keySet()) {
+            historyManager.remove(id);
+        }
         subtasks.clear();
+
         for (Epic ep : epics.values()) {
             ep.cleanSubtasksEpic();
             updateEpicStatus(ep);
@@ -101,6 +115,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTask(int idTask) {
         tasks.remove(idTask);
+        historyManager.remove(idTask);
     }
 
     @Override
@@ -111,18 +126,21 @@ public class InMemoryTaskManager implements TaskManager {
         }
         Epic epic = epics.get(subtask.getEpicId());
         epic.removeSubtaskId(id);
+        historyManager.remove(id);
         updateEpicStatus(epic);
     }
 
     @Override
     public void removeEpic(int idTask) {
         if (epics.containsKey(idTask)) {
-            ArrayList<Integer> subtasksEpic = epics.get(idTask).getSubtasksIds();
-
-            for (int i = 0; i < subtasksEpic.size(); i++) {
-                subtasks.remove(i);
+            List<Integer> subtasksEpic = epics.get(idTask).getSubtasksIds();
+            for (Integer id : subtasksEpic) {
+                subtasks.remove(id);
+                historyManager.remove(id);
             }
             epics.remove(idTask);
+            historyManager.remove(idTask);
+
         }
     }
 
@@ -179,7 +197,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateEpicStatus(Epic epic) {
-        ArrayList<Integer> epicSubtasks = epic.getSubtasksIds();
+        List<Integer> epicSubtasks = epic.getSubtasksIds();
         HashSet<Status> subtaskStatuses = new HashSet<>();
 
         for (int id : epicSubtasks) {

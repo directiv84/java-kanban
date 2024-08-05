@@ -4,7 +4,10 @@ import ru.yandex.javacource.fetisov.schedule.task.Task;
 import java.util.List;
 
 public interface HistoryManager {
-    <T extends Task> void add(T task);
+    void add(Task task);
+
+    void remove(int id);
 
     List<Task> getHistory();
+
 }

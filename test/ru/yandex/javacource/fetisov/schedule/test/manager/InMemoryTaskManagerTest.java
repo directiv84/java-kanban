@@ -1,6 +1,7 @@
 package ru.yandex.javacource.fetisov.schedule.test.manager;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.fetisov.schedule.manager.InMemoryHistoryManager;
 import ru.yandex.javacource.fetisov.schedule.manager.InMemoryTaskManager;
@@ -19,12 +20,9 @@ class InMemoryTaskManagerTest {
     InMemoryHistoryManager historyManager;
     InMemoryTaskManager taskManager;
     Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
-    Task task2 = new Task("Задача 2", "Описание задачи 2", Status.NEW);
     Epic epic1 = new Epic("Эпик 1", "Описание эпика 1", Status.NEW);
-    Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", Status.NEW);
     Subtask subtask1 = new Subtask("Подзадача 1", "Описание подзадачи 1", Status.NEW, 1);
     Subtask subtask2 = new Subtask("Подзадача 2", "Описание подзадачи 2", Status.NEW, 1);
-    Subtask subtask3 = new Subtask("Подзадача 3", "Описание подзадачи 3", Status.NEW, 2);
 
     @BeforeEach
     void BeforeEach() {
@@ -46,6 +44,7 @@ class InMemoryTaskManagerTest {
      * 3. Id нигде в логике не задаются, они только генерятся. Или речь про валидацию данных при обновлени?
      */
 
+    @DisplayName("Tasks with same ids are equals")
     @Test
     void shouldBeEqualsTasksIfTheirIdsEquals() {
         int id = taskManager.addNewTask(task1);
@@ -53,6 +52,7 @@ class InMemoryTaskManagerTest {
         assertEquals(task1, t2, "Tasks with equals ids not equals");
     }
 
+    @DisplayName("Epics with same ids are equals")
     @Test
     void shouldBeEqualsEpicsIfTheirIdsEquals() {
         int id = taskManager.addNewEpic(epic1);
@@ -60,6 +60,7 @@ class InMemoryTaskManagerTest {
         assertEquals(epic1, ep2, "Epics with equals ids not equals");
     }
 
+    @DisplayName("Subtasks with same ids are equals")
     @Test
     void shouldBeEqualsSubtasksIfTheirIdsEquals() {
         taskManager.addNewEpic(epic1);
@@ -68,6 +69,7 @@ class InMemoryTaskManagerTest {
         assertEquals(subtask1, st2, "Subtasks with equals ids not equals");
     }
 
+    @DisplayName("Create task and get by id")
     @Test
     void shouldAddNewTaskAndGetTaskById() {
         int id = taskManager.addNewTask(task1);
@@ -76,6 +78,7 @@ class InMemoryTaskManagerTest {
         assertEquals(task1, task, "Task not equals after and before addNewTask");
     }
 
+    @DisplayName("Create epic and get by id")
     @Test
     void shouldAddNewEpicAndGetEpicById() {
         int id = taskManager.addNewEpic(epic1);
@@ -84,6 +87,7 @@ class InMemoryTaskManagerTest {
         assertEquals(epic1, epic, "Epic not equals after and before addNewEpic");
     }
 
+    @DisplayName("Create subtask and get by id")
     @Test
     void shouldAddNewSubtaskAndGetSubtaskById() {
         taskManager.addNewEpic(epic1);
@@ -93,6 +97,7 @@ class InMemoryTaskManagerTest {
         assertEquals(subtask1, subtask, "Subtask not equals after and before addNewSubtask");
     }
 
+    @DisplayName("In history saving same values that in task")
     @Test
     void shouldBeSavedValuesOfFieldsAfterAddToManager() {
         int id = taskManager.addNewTask(task1);
@@ -102,6 +107,7 @@ class InMemoryTaskManagerTest {
         assertEquals(task1.getStatus(), task2.getStatus(), "Statuses not equals before and after addNewTask");
     }
 
+    @DisplayName("History changing with change task")
     @Test
     void shouldBeSavedValuesOfFieldsTaskInHistoryAfterUpdateTask() {
         int id = taskManager.addNewTask(task1);
@@ -110,6 +116,7 @@ class InMemoryTaskManagerTest {
         assertNotEquals(historyManager.getHistory(), List.of(task1), "History changes with task");
     }
 
+    @DisplayName("Remove task by id")
     @Test
     void shouldRemoveTaskById() {
         int id = taskManager.addNewTask(task1);
@@ -120,6 +127,7 @@ class InMemoryTaskManagerTest {
         assertNull(task, "Task didn't remove");
     }
 
+    @DisplayName("Remove epic by id")
     @Test
     void shouldRemoveEpicById() {
         int id = taskManager.addNewEpic(epic1);
@@ -130,6 +138,7 @@ class InMemoryTaskManagerTest {
         assertNull(epic, "Epic didn't remove");
     }
 
+    @DisplayName("Remove subtask by id")
     @Test
     void shouldRemoveSubtaskById() {
         taskManager.addNewEpic(epic1);
@@ -141,6 +150,7 @@ class InMemoryTaskManagerTest {
         assertNull(subtask, "Subtask didn't remove");
     }
 
+    @DisplayName("Recalculate epic's status")
     @Test
     void shouldChangeEpicsStatusAfterChangeSubtaskStatus() {
         int id = taskManager.addNewEpic(epic1);
@@ -152,5 +162,4 @@ class InMemoryTaskManagerTest {
         taskManager.updateSubtask(savedSubtask);
         assertNotEquals(oldStatus, taskManager.getEpic(id).getStatus(), "Epic's status didn't change after change subtask's status");
     }
-
 }

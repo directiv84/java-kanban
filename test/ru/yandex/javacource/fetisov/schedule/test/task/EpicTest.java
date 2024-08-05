@@ -1,6 +1,7 @@
 package ru.yandex.javacource.fetisov.schedule.test.task;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.fetisov.schedule.task.Epic;
 import ru.yandex.javacource.fetisov.schedule.task.Status;
@@ -16,6 +17,7 @@ public class EpicTest {
         epic = new Epic("Эпик 1", "Описание эпика 1", Status.NEW);
     }
 
+    @DisplayName("Increase the numbers of epic's subtasks")
     @Test
     void shouldIncreaseNumberOfEpicSubtasksAfterAddSubtask() {
         int sizeBeforeAdd = epic.getSubtasksIds().size();
@@ -24,6 +26,7 @@ public class EpicTest {
         assertEquals(++sizeBeforeAdd, sizeAfterAdd, "Array of epic's subtasks didn't increase after add new subtask");
     }
 
+    @DisplayName("Decrease the numbers of epic's subtasks")
     @Test
     void shouldDecreaseNumberOfEpicSubtasksAfterRemoveSubtask() {
         epic.addSubtaskId(3);
